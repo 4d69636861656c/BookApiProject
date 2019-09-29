@@ -1,0 +1,47 @@
+﻿@model BookApiProject.Models.Review
+@{
+    ViewData["Title"] = "CreateReview";
+}
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<h1>Add a new review for @ViewBag.BookTitle</h1>
+
+<form asp-controller="Reviews" asp-action="CreateReview" asp-route-bookId="@ViewBag.BookId" method="post">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-2">
+                <label asp-for="Reviewer">Reviewer Name:</label>
+            </div>
+            <div class="col-sm-3">
+                @await Component.InvokeAsync("ReviewersList")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label asp-for="Headline">Review Headline:</label>
+            </div>
+            <div class="col-sm-3">
+                <input asp-for="Headline" placeholder="Review Headline" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label asp-for="Rating">Rating:</label>
+            </div>
+            <div class="col-sm-3">
+                <input asp-for="Rating" placeholder="Review Rating" type="number" min="1" max="5" step="1" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label asp-for="ReviewText">Review body:</label>
+            </div>
+            <div class="col-sm-3">
+                <textarea asp-for="ReviewText" style="min-width:200px; min-height:200px;"></textarea>
+            </div>
+        </div>
+        <br />
+        <input type="submit" value="Add Review" class="btn-sm btn btn-primary" />
+    </div>
+</form>
+<a asp-controller="Reviews" asp-action="Index" class="btn btn-sm btn-primary">Cancel</a>

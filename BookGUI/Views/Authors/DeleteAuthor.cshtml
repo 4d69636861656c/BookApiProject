@@ -1,0 +1,29 @@
+﻿@model BookApiProject.Models.Author
+@{
+    ViewData["Title"] = "DeleteAuthor";
+}
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<div>
+    <h2>Delete the author @Model.FirstName @Model.LastName?</h2>
+    <br />
+    <form asp-controller="Authors" asp-action="DeleteAuthor" asp-route-authorId="@Model.Id" asp-route-authorFirstName="@Model.FirstName" asp-route-authorLastName="@Model.LastName" method="post">
+        <div>
+            <p>
+                <strong>Author first name: </strong>
+                <span> @Model.FirstName </span>
+                <br />
+                <strong>Author second name: </strong>
+                <span> @Model.LastName </span>
+                <br />
+                <strong>Country of author: </strong>
+                <span> @Model.Country.Name </span>
+                <br />
+            </p>
+        </div>
+        <input type="submit" value="Delete author" class="btn btn-sm btn-danger" />
+    </form>
+    <br />
+    <a asp-controller="Authors" asp-action="GetAuthorById" asp-route-authorId="@Model.Id" class="btn btn-sm btn-primary">Cancel</a>
+</div>

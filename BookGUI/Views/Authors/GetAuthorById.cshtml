@@ -1,0 +1,55 @@
+﻿@model BookGUI.ViewModels.AuthorCountryBooksCategoriesViewModel
+@{
+    ViewData["Title"] = "GetAuthorById";
+}
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<h4>@ViewBag.Message</h4>
+<h2 class="text-success">@ViewBag.SuccessMessage</h2>
+
+<div>
+    <h1>Author Details</h1>
+    <br />
+    <div>
+        <p>
+            <strong>Author first name: </strong>
+            <span> @Model.Author.FirstName </span>
+            <br />
+            <strong>Author second name: </strong>
+            <span> @Model.Author.LastName </span>
+            <br />
+            <strong>Country of author: </strong>
+            <a asp-controller="Countries" asp-action="GetCountryById" asp-route-countryId="@Model.Country.Id"> @Model.Country.Name </a>
+            <br />
+        </p>
+        <div class="form-group text-center">
+            <a class="btn btn-sm btn-primary" asp-controller="Authors" asp-action="UpdateAuthor" asp-route-authorId="@Model.Author.Id" asp-route-CountryId="@Model.Country.Id">Update</a>
+            <a class="btn btn-sm btn-danger" asp-controller="Authors" asp-action="DeleteAuthor" asp-route-authorId="@Model.Author.Id">Delete</a>
+        </div>
+    </div>
+    <br /> <br />
+    <div>
+        <h4>This author is associated the following books: </h4>
+        <h4>@ViewBag.BookMessage</h4>
+        @foreach (var bookCategory in Model.BookCategories)
+        {
+            <div>
+                <br />
+                <p>
+                    <strong>Title: </strong>
+                    <a asp-controller="Home" asp-action="GetBookById" asp-route-bookId="@bookCategory.Key.Id"> @bookCategory.Key.Title </a>
+                    <table>
+                        <tr>
+                            <th style="float:left; margin-right:15px;">Categories of book: </th>
+                            @foreach (var category in bookCategory.Value)
+                            {
+                                <td style="float:left; margin-right:15px"><a asp-controller="Categories" asp-action="GetCategoryById" asp-route-categoryId="@category.Id">@category.Name </a></td>
+                            }
+                        </tr>
+                    </table>
+                </p>
+                <br />
+            </div>
+        }
+    </div>
+</div>
